@@ -23,15 +23,9 @@ public class Main {
         // Поток для проверки, является ли слово палиндромом
         Thread palindromeThread = new Thread(() -> {
             for (String text : texts) {
-                if (isPalindrome(text)) {
+                if (isIncreasingOrder(text)) {
                     int length = text.length();
-                    if (length == 3) {
-                        length3Counter.incrementAndGet();
-                    } else if (length == 4) {
-                        length4Counter.incrementAndGet();
-                    } else if (length == 5) {
-                        length5Counter.incrementAndGet();
-                    }
+                    incrementCounter(length, length3Counter, length4Counter, length5Counter);
                 }
             }
         });
@@ -41,13 +35,7 @@ public class Main {
             for (String text : texts) {
                 if (isSameLetter(text)) {
                     int length = text.length();
-                    if (length == 3) {
-                        length3Counter.incrementAndGet();
-                    } else if (length == 4) {
-                        length4Counter.incrementAndGet();
-                    } else if (length == 5) {
-                        length5Counter.incrementAndGet();
-                    }
+                    incrementCounter(length, length3Counter, length4Counter, length5Counter);
                 }
             }
         });
@@ -57,13 +45,7 @@ public class Main {
             for (String text : texts) {
                 if (isIncreasingOrder(text)) {
                     int length = text.length();
-                    if (length == 3) {
-                        length3Counter.incrementAndGet();
-                    } else if (length == 4) {
-                        length4Counter.incrementAndGet();
-                    } else if (length == 5) {
-                        length5Counter.incrementAndGet();
-                    }
+                    incrementCounter(length, length3Counter, length4Counter, length5Counter);
                 }
             }
         });
@@ -86,6 +68,17 @@ public class Main {
         System.out.println("Красивых слов с длиной 3: " + length3Counter.get() + " шт");
         System.out.println("Красивых слов с длиной 4: " + length4Counter.get() + " шт");
         System.out.println("Красивых слов с длиной 5: " + length5Counter.get() + " шт");
+    }
+
+    // Метод для увелечения атомик полей
+    private static void incrementCounter(int length, AtomicInteger length3Counter, AtomicInteger length4Counter, AtomicInteger length5Counter) {
+        if (length == 3) {
+            length3Counter.incrementAndGet();
+        } else if (length == 4) {
+            length4Counter.incrementAndGet();
+        } else if (length == 5) {
+            length5Counter.incrementAndGet();
+        }
     }
 
     // Метод для генерации случайного текста
